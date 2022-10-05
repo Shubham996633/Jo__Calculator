@@ -55,7 +55,7 @@ body {
 
 .header > h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: normal;
 }
 
@@ -104,11 +104,7 @@ button:active {
 
 }
 
-.transparency{
-    background-color: rgba(235, 255, 255, 0.6);
 
-
-}
 
 .equals{
     background-color: rgb(108, 177, 233);
@@ -120,3 +116,14 @@ button:active {
     background-color: steelblue;
     filter: brightness(120%);
 }
+
+/* @media screen and (min-width:768px) {
+    html{
+        font-size: 22px;
+
+    }
+    .container{
+        grid-template-rows: 35px minmax(95px, auto) repeat(5, minmax(0, 95px));
+    }
+    
+} */
