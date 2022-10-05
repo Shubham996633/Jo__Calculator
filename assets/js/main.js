@@ -55,8 +55,45 @@ const initApp = () => {
                                         ${equationObj['op']}
                                         ${equationObj['num2']}`
                 const newValue = calculate(equationString, currentValueElem)
+                previousValueElem.textContent = `${newValue} ${newOperator}`
+                itemArray = [newValue, newOperator]
+                newNumberFlag = true
             }
         })
+    })
+
+    const equalsButton = document.querySelector('.equals')
+    equalsButton.addEventListener('click', () => {
+        const currentVal = currentValueElem.value
+        let equationObj
+        if(!itemArray.length && equationArray.length){
+            const lastEquation = equationArray[equationArray.length - 1]
+            equationObj = {
+                num1: parseFloat(currentVal),
+                num2: lastEquation.num2,
+                op: lastEquation.op
+
+            }
+        }else if(!itemArray.length){
+            return currentVal
+        }else{
+            itemArray.push(currentVal)
+            equationObj = {
+                num1: parseFloat(itemArray[0]),
+                num2: parseFloat(currentVal),
+                op: itemArray[1]
+
+            }
+        }
+
+        equationArray.push(equationObj)
+        const equationString = 
+            `${equationObj['num1']} ${equationObj['op']} ${equationObj['num2']}`
+
+        calculate(equationString, currentValueElem)
+        previousValueElem.textContent = `${equationString} =`
+        newNumberFlag = true
+        itemArray = []
     })
 
 
@@ -85,7 +122,10 @@ const initApp = () => {
 document.addEventListener('DOMContentLoaded', initApp)
 
 const calculate = (equation, currentValueElem) => {
-const regex = /(^[*/=])|(\s)/
+    const regex = /(^[*/=])|(\s)/g
+    equation.replace(regex, '')
+    const divByZero = /(\/0)/.test(equation)
+    if(divByZero) return currentValueElem.value = 0
+    return currentValueElem.value = eval(equation)
 }
 
-// 53:12
